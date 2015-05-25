@@ -1,0 +1,32 @@
+#style-guide h1.style-guide,
+#style-guide h2.style-guide,
+#style-guide h3.style-guide,
+#style-guide h4.style-guide,
+#style-guide h5.style-guide,
+#style-guide h6.style-guide{
+    color:grey;
+    font-family:aleobold,monospace;
+    text-align:center;
+    margin-left:1rem
+}
+#style-guide h3.style-guide{
+    font-family: aleoitalic, monospace;
+    color: #cccccc;
+}
+#style-guide p.style-guide{
+    font-family: aleolight,monospace;
+    text-align: center;
+}
+#style-guide div.style-guide{
+    border:1px solid #5cb031;
+    border-radius: 10px;
+    margin:auto;
+    width:90%;
+    padding: 1%;
+}
+#style-guide div.style-guide-map{
+    height:50vh
+}
+#style-guide md-divider.style-guide{
+    margin-top:1rem
+}

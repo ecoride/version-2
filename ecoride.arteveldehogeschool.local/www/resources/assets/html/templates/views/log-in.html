@@ -1,0 +1,23 @@
+<md-toolbar>
+	<h1>Log in</h1>
+</md-toolbar>
+<md-content class="md-padding">
+	<form action="" name="login_form">
+		<md-input-container>
+			<label>Username</label>
+			<input type="text" name="username" ng-model="user.account.username" required>
+			<ng-messages for="login_form.username.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+		</md-input-container>
+
+		<md-input-container>
+			<label>Password</label>
+			<input type="password" name="password" ng-model="user.account.password" required>
+			<ng-messages for="login_form.password.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+		</md-input-container>
+
+		<div layout="row" layout-align="space-between end">
+			<md-button ng-href="#/goals" class="md-raised md-accent">Log in</md-button>
+			<md-button>Forgot password?</md-button>
+		</div>
+	</form>
+</md-content>

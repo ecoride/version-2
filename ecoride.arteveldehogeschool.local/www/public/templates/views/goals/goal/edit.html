@@ -1,0 +1,95 @@
+<md-toolbar>
+	<h1>Edit Goal</h1>
+</md-toolbar>
+<md-content class="md-padding">
+	<form action="" name="goal_form">
+		<section>
+			<md-subheader class="md-accent">Details</md-subheader>
+			<md-input-container flex>
+				<label>Name</label>
+				<input name="name" ng-model="vm.goal.name" required>
+				<ng-messages for="goal_form.name.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+			</md-input-container>
+
+			<md-input-container flex>
+				<label>Notes</label>
+				<textarea name="notes" ng-model="vm.goal.notes" columns="1" rows="5" md-maxlength="250"></textarea>
+				<ng-messages for="goal_form.notes.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+			</md-input-container>
+		</section>
+
+		<section>
+			<md-subheader class="md-accent">Target</md-subheader>
+
+			<md-select ng-model="vm.goal.target_class" placeholder="Target type" disabled>
+				<md-option ng-value="target.class" ng-repeat="target in vm.targetTypes">{{ target.label }}</md-option>
+			</md-select>
+
+			<div ng-show="vm.isTypeCheckbox(vm.goal.target_class) || vm.isTypeRecurringCheckbox(vm.goal.target_class)">
+				<h4>Deadline</h4>
+				<div layout="row" layout-sm="column">
+					<md-input-container flex>
+						<label>Date</label>
+						<input type="date" name="deadline_date" ng-model="vm.goal.target.deadline_date" required>
+						<ng-messages for="goal_form.deadline_date.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+					</md-input-container>
+					<md-input-container flex>
+						<label>Time</label>
+						<input type="time" name="deadline_time" ng-model="vm.goal.target.deadline_time" required>
+						<ng-messages for="goal_form.deadline_time.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+					</md-input-container>
+					<md-switch ng-model="vm.goal.target.deadline_reminder" aria-label="Deadline reminder" flex>
+						Reminder <i class="fa {{ vm.goal.target.deadline_reminder ? 'fa-bell-o' : 'fa-bell-slash-o' }}"></i>
+					</md-switch>
+				</div>
+
+				<div layout="row" ng-show="vm.isTypeRecurringCheckbox(vm.goal.target_class)">
+					<md-select name="repeat_deadline" ng-model="vm.goal.target.repeat_deadline" placeholder="Repeat deadline" required>
+						<md-optgroup label="Repeat deadline">
+							<md-option ng-value="repeat.value" ng-repeat="repeat in vm.ui.repeatTypes">{{ repeat.label }}</md-option>
+						</md-optgroup>
+					</md-select>
+					<h4>Repeat until</h4>
+					<div layout="row">
+						<md-input-container ng-show="vm.goal.target.repeat_deadline" flex>
+							<label>Date</label>
+							<input type="date" name="repeat_until_date" ng-model="vm.goal.target.repeat_until_date">
+							<ng-messages for="goal_form.repeat_until_date.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+						</md-input-container>
+						<md-input-container ng-show="vm.goal.target.repeat_deadline" flex>
+							<label>Time</label>
+							<input type="time" name="repeat_until_time" ng-model="vm.goal.target.repeat_until_time">
+							<ng-messages for="goal_form.repeat_until_time.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+
+			<div ng-show="vm.isTypeDuration(vm.goal.target_class)">
+				<div layout="row">
+					<md-input-container flex>
+						<label>Time estimated</label>
+						<input type="number" name="time_estimated" min="0" ng-model="vm.goal.target.time_estimated">
+						<ng-messages for="goal_form.time_estimated.$error" ng-messages-include="templates/partials/validation-messages.html"></ng-messages>
+					</md-input-container>
+					<md-select name="time_increment" ng-model="vm.goal.target.time_increment" placeholder="Time increment" required flex>
+						<md-optgroup label="Time increment">
+							<md-option ng-value="increment.value" ng-repeat="increment in vm.ui.incrementTypes">{{ increment.label }}</md-option>
+						</md-optgroup>
+					</md-select>
+				</div>
+				<div layout="row">
+					<md-input-container flex>
+						<label>Estimated total duration</label>
+						<input ng-model="vm.ui.goal.duration" disabled>
+					</md-input-container>
+				</div>
+			</div>
+		</section>
+
+		<br><br>
+		<nav class="smu-button-bar" layout layout-align="space-between center">
+			<md-button class="md-raised md-accent" ng-click="vm.saveEdit()"><i class="fa fa-cloud"></i> Save</md-button>
+		</nav>
+	</form>
+</md-content>

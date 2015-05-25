@@ -1,0 +1,83 @@
+<md-toolbar>
+	<h1>Goal Update</h1>
+</md-toolbar>
+<md-content class="md-padding">
+	<form action="" name="goal_form">
+		<section>
+			<md-subheader class="md-accent">Details</md-subheader>
+			<md-input-container flex>
+				<label>Name</label>
+				<input ng-model="vm.goal.name" disabled>
+			</md-input-container>
+
+			<md-input-container flex>
+				<label>Notes</label>
+				<textarea ng-model="vm.goal.notes" columns="1" rows="5" md-maxlength="250" disabled></textarea>
+			</md-input-container>
+		</section>
+
+		<section>
+			<md-subheader class="md-accent">Target</md-subheader>
+
+			<div ng-show="vm.isTypeCheckbox(vm.goal.target_class)">
+				<md-input-container flex>
+					<label>Deadline</label>
+					<input ng-model="vm.goal.target.deadline_at" type="datetime-local" disabled>
+				</md-input-container>
+			</div>
+
+			<div ng-show="vm.isTypeRecurringCheckbox(vm.goal.target_class)">
+				<md-input-container flex>
+					<label>Deadline</label>
+					<input ng-model="vm.goal.target.deadline_at" type="datetime-local" disabled>
+				</md-input-container>
+				<md-select ng-model="vm.goal.target.repeat_deadline" placeholder="Repeat deadline" disabled>
+					<md-option ng-value="type.value" ng-repeat="type in vm.repeatTypes">{{ type.label }}</md-option>
+				</md-select>
+				<md-input-container flex>
+					<label>Repeat until</label>
+					<input ng-model="vm.goal.target.repeat_until_at" type="datetime" placeholder="2015-12-31 23:59:59" disabled>
+				</md-input-container>
+			</div>
+
+			<div ng-show="vm.isTypeDuration(vm.goal.target_class)">
+				<md-input-container flex>
+					<label>Time estimated</label>
+					<input ng-model="vm.goal.target.time_estimated" disabled>
+				</md-input-container>
+				<md-input-container flex>
+					<label>Time increment</label>
+					<input ng-model="vm.goal.target.time_increment" disabled>
+				</md-input-container>
+			</div>
+		</section>
+
+		<section>
+			<md-subheader class="md-accent">Update</md-subheader>
+			<div ng-show="vm.isTypeCheckbox(vm.goal.target_class) || vm.isTypeRecurringCheckbox(vm.goal.target_class)">
+				<md-checkbox ng-model="vm.achieved" aria-label="Achieved">
+					Achieved<span ng-show="vm.achieved">on {{ vm.goal.target.achieved_at }}</span>
+				</md-checkbox>
+			</div>
+
+			<div ng-show="vm.isTypeDuration(vm.goal.target_class)">
+				<div layout="row" layout-align="start center">
+					<md-input-container>
+						<label>Time incrementation</label>
+						<input ng-model="vm.time_incrementation_display" disabled>
+					</md-input-container>
+					<md-button ng-click="vm.decrement()" aria-label="Decrement time incrementation"><i class="fa fa-minus"></i></md-button>
+					<md-button ng-click="vm.increment()" aria-label="Increment time incrementation"><i class="fa fa-plus"></i></md-button>
+				</div>
+			</div>
+		</section>
+
+		<br>
+		<br>
+		<nav layout layout-align="space-between center">
+			<md-button class="md-raised md-accent" href="#/goals" ng-click="vm.updateCreate()"><i class="fa fa-cloud"></i> Save</md-button>
+			<md-button class="md-raised" href="#/goals/category/{{ vm.categoryId }}/goal/{{ vm.goalId }}/edit"><i class="fa fa-edit"></i> Edit</md-button>
+			<md-button class="" href="#/goals/category/{{ vm.categoryId }}/goal/{{ vm.goalId }}/statistics">Statistics <i class="fa fa-bar-chart"></i></md-button>
+		</nav>
+	</form>
+</md-content>
